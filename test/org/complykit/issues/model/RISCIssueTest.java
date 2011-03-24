@@ -266,4 +266,36 @@ public class RISCIssueTest {
         assertTrue(queriedInst.getCategory().equals(testVal));
     }
 
+    @Test
+    public void testSteps() {
+        RISCIssue inst=new RISCIssue();
+        RISCIssue queriedInst=new RISCIssue();
+
+        RISCIssueStep step1=new RISCIssueStep();
+        step1.setTitle("step 1");
+        RISCIssueStep step2=new RISCIssueStep();
+        step2.setTitle("step 2");
+
+        inst.getSteps().add(step1);
+        inst.getSteps().add(step2);
+
+        String testVal="test fsds fd";
+        inst.setCategory(testVal);
+        try {
+            Session session=HibernateUtil.getSessionFactory().openSession();
+            session.save(inst);
+            //TODO do I need to save those too?
+
+            Long id=inst.getId();
+
+            String hql="from RISCIssue where id="+id.longValue();
+            Query query=session.createQuery(hql);
+            queriedInst=(RISCIssue)query.uniqueResult();
+            session.close();
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertNotNull(queriedInst.getSteps());
+        assertTrue(queriedInst.getSteps().size()==2);
+    }
 }

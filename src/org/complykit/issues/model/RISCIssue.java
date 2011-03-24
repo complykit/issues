@@ -5,11 +5,15 @@
 package org.complykit.issues.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +41,8 @@ public class RISCIssue {
     private Date statusDate=new Date();
 
     private String category="";
+
+    private Set steps=new HashSet();
 
     //private Group group;
     
@@ -114,6 +120,15 @@ public class RISCIssue {
         this.category = category;
     }
 
+    @OneToMany(targetEntity=org.complykit.issues.model.RISCIssueStep.class)
+    @JoinColumn(name="risc_issue_fk")
+    public Set getSteps() {
+        return steps;
+    }
+    public void setSteps(Set steps) {
+        this.steps = steps;
+    }
+
     /*
     @ManyToOne
     @Column(name="group_id")
@@ -124,4 +139,7 @@ public class RISCIssue {
         this.group = group;
     }
     */
+
+
+
 }
