@@ -23,8 +23,7 @@ public class Ticket {
 
     private Long id;
 
-    private Date submittedDate=new Date(); //default to right now
-    private Date resolvedDate=null;
+    private Date openedDate=new Date(); //default to right now
 
     private String title;
     private String description;
@@ -32,8 +31,12 @@ public class Ticket {
     private String submitter;
     private String assignedTo;
 
-    private String status;
     private String category;
+
+    private boolean closed;
+    private Date closedDate=null;
+    private String closeComments;
+    private boolean closedResolved;
 
     @Id @Column(name="ticket_id")
     @GeneratedValue
@@ -44,22 +47,13 @@ public class Ticket {
         this.id = id;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="submitted_date")
-    public Date getSubmittedDate() {
-        return submittedDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="opened_date")
+    public Date getOpenedDate() {
+        return openedDate;
     }
-    public void setSubmittedDate(Date submittedDate) {
-        this.submittedDate = submittedDate;
-    }
-
-    @Temporal(TemporalType.DATE)
-    @Column(name="resolved_date")
-    public Date getResolvedDate() {
-        return resolvedDate;
-    }
-    public void setResolvedDate(Date resolvedDate) {
-        this.resolvedDate = resolvedDate;
+    public void setOpenedDate(Date openedDate) {
+        this.openedDate = openedDate;
     }
 
     @Column(name="title", length=255)
@@ -94,14 +88,6 @@ public class Ticket {
         this.assignedTo = assignedTo;
     }
 
-    @Column(name="status", length=255)
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @Column(name="category", length=255)
     public String getCategory() {
         return category;
@@ -109,5 +95,39 @@ public class Ticket {
     public void setCategory(String category) {
         this.category = category;
     }
-    
+
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="closed_date")
+    public Date getClosedDate() {
+        return closedDate;
+    }
+    public void setClosedDate(Date closedDate) {
+        this.closedDate = closedDate;
+    }
+
+    @Column(name="closed_comments", columnDefinition="text")
+    public String getCloseComments() {
+        return closeComments;
+    }
+    public void setCloseComments(String closeComments) {
+        this.closeComments = closeComments;
+    }
+
+    @Column(name="closed_status")
+    public boolean isClosed() {
+        return closed;
+    }
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+    @Column(name="closed_resolved")
+    public boolean isClosedResolved() {
+        return closedResolved;
+    }
+    public void setClosedResolved(boolean closedResolved) {
+        this.closedResolved = closedResolved;
+    }
+
 }

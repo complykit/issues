@@ -4,10 +4,9 @@
 
 package org.complykit.issues.model;
 
+import org.complykit.issues.test.UtilTestCaseMaker;
+import org.complykit.issues.test.UtilSaveAndRetrieveObjects;
 import java.util.Date;
-import org.hibernate.Query;
-import org.complykit.issues.test.HibernateUtil;
-import org.hibernate.Session;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,10 +20,15 @@ import static org.junit.Assert.*;
  */
 public class TicketTest {
 
+    UtilSaveAndRetrieveObjects saveAndRetrieve;
+    UtilTestCaseMaker testCaseMaker;
     public TicketTest() { }
     @BeforeClass public static void setUpClass() throws Exception { }
     @AfterClass public static void tearDownClass() throws Exception { }
-    @Before public void setUp() { }
+    @Before public void setUp() { 
+        saveAndRetrieve=new UtilSaveAndRetrieveObjects();
+        testCaseMaker=new UtilTestCaseMaker();
+    }
     @After public void tearDown() { }
 
     /**
@@ -36,10 +40,8 @@ public class TicketTest {
         Ticket instance2=new Ticket();
 
         try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(instance1);
-            session.save(instance2);
-            session.close();
+            saveAndRetrieve.ticket(instance1);
+            saveAndRetrieve.ticket(instance2);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
@@ -56,53 +58,37 @@ public class TicketTest {
      * Test of getSubmittedDate method, of class Ticket.
      */
     @Test
-    public void testSubmittedDate() {
+    public void testOpenedDate() {
         Ticket inst=new Ticket();
         Ticket queriedInst=new Ticket();
         Date testVal=new Date();
-        inst.setSubmittedDate(testVal);
+        inst.setOpenedDate(testVal);
         try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(inst);
-
-            Long id=inst.getId();
-
-            String hql="from Ticket where id="+id.longValue();
-            Query query=session.createQuery(hql);
-            queriedInst=(Ticket)query.uniqueResult();
-            session.close();
+            queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
-        assertNotNull(queriedInst.getSubmittedDate());
-        assertTrue(queriedInst.getSubmittedDate().equals(testVal));
+        assertNotNull(queriedInst.getOpenedDate());
+        assertTrue(queriedInst.getOpenedDate().equals(testVal));
     }
 
 
     /**
-     * Test of getResolvedDate method, of class Ticket.
+     * Test of the closed date aspects of the ticket
      */
     @Test
-    public void testResolvedDate() {
+    public void testClosedDate() {
         Ticket inst=new Ticket();
         Ticket queriedInst=new Ticket();
         Date testVal=new Date();
-        inst.setResolvedDate(testVal);
+        inst.setClosedDate(testVal);
         try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(inst);
-
-            Long id=inst.getId();
-
-            String hql="from Ticket where id="+id.longValue();
-            Query query=session.createQuery(hql);
-            queriedInst=(Ticket)query.uniqueResult();
-            session.close();
+            queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
-        assertNotNull(queriedInst.getResolvedDate());
-        assertTrue(queriedInst.getResolvedDate().equals(testVal));
+        assertNotNull(queriedInst.getClosedDate());
+        assertTrue(queriedInst.getClosedDate().equals(testVal));
     }
 
     /**
@@ -115,15 +101,7 @@ public class TicketTest {
         String testVal="test fsds fd";
         inst.setTitle(testVal);
         try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(inst);
-
-            Long id=inst.getId();
-
-            String hql="from Ticket where id="+id.longValue();
-            Query query=session.createQuery(hql);
-            queriedInst=(Ticket)query.uniqueResult();
-            session.close();
+            queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
@@ -138,21 +116,10 @@ public class TicketTest {
     public void testDescription() {
         Ticket inst=new Ticket();
         Ticket queriedInst=new Ticket();
-        String testVal="";
-        for (int i=0; i<1000; i++) {
-            testVal=testVal+i;
-        }
+        String testVal=testCaseMaker.makeLongString();
         inst.setDescription(testVal);
         try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(inst);
-
-            Long id=inst.getId();
-
-            String hql="from Ticket where id="+id.longValue();
-            Query query=session.createQuery(hql);
-            queriedInst=(Ticket)query.uniqueResult();
-            session.close();
+            queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
@@ -170,15 +137,7 @@ public class TicketTest {
         String testVal="test fsds fd";
         inst.setSubmitter(testVal);
         try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(inst);
-
-            Long id=inst.getId();
-
-            String hql="from Ticket where id="+id.longValue();
-            Query query=session.createQuery(hql);
-            queriedInst=(Ticket)query.uniqueResult();
-            session.close();
+            queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
@@ -196,46 +155,12 @@ public class TicketTest {
         String testVal="test fsds fd";
         inst.setAssignedTo(testVal);
         try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(inst);
-
-            Long id=inst.getId();
-
-            String hql="from Ticket where id="+id.longValue();
-            Query query=session.createQuery(hql);
-            queriedInst=(Ticket)query.uniqueResult();
-            session.close();
+            queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
         assertNotNull(queriedInst.getAssignedTo());
         assertTrue(queriedInst.getAssignedTo().equals(testVal));
-    }
-
-    /**
-     * Test of getStatus method, of class Ticket.
-     */
-    @Test
-    public void testStatus() {
-        Ticket inst=new Ticket();
-        Ticket queriedInst=new Ticket();
-        String testVal="test fsds fd";
-        inst.setStatus(testVal);
-        try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(inst);
-
-            Long id=inst.getId();
-
-            String hql="from Ticket where id="+id.longValue();
-            Query query=session.createQuery(hql);
-            queriedInst=(Ticket)query.uniqueResult();
-            session.close();
-        } catch (Exception e) {
-            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
-        }
-        assertNotNull(queriedInst.getStatus());
-        assertTrue(queriedInst.getStatus().equals(testVal));
     }
 
     /**
@@ -248,15 +173,7 @@ public class TicketTest {
         String testVal="test fsds fd";
         inst.setCategory(testVal);
         try {
-            Session session=HibernateUtil.getSessionFactory().openSession();
-            session.save(inst);
-
-            Long id=inst.getId();
-
-            String hql="from Ticket where id="+id.longValue();
-            Query query=session.createQuery(hql);
-            queriedInst=(Ticket)query.uniqueResult();
-            session.close();
+            queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
@@ -264,4 +181,55 @@ public class TicketTest {
         assertTrue(queriedInst.getCategory().equals(testVal));
     }
 
+    /**
+     * Test of getDescription method, of class Ticket.
+     */
+    @Test
+    public void testCloseComments() {
+        Ticket inst=new Ticket();
+        Ticket queriedInst=new Ticket();
+        String testVal=testCaseMaker.makeLongString();
+        inst.setCloseComments(testVal);
+        try {
+            queriedInst=saveAndRetrieve.ticket(inst);
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertNotNull(queriedInst.getCloseComments());
+        assertTrue(queriedInst.getCloseComments().equals(testVal));
+    }
+
+    /**
+     * Test of getCategory method, of class Ticket.
+     */
+    @Test
+    public void testCloseStatus() {
+        Ticket inst=new Ticket();
+        Ticket queriedInst=new Ticket();
+        boolean testVal=true;
+        inst.setClosed(testVal);
+        try {
+            queriedInst=saveAndRetrieve.ticket(inst);
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertTrue(queriedInst.isClosed()==testVal);
+    }
+    
+    /**
+     * Test of getCategory method, of class Ticket.
+     */
+    @Test
+    public void testCloseResolved() {
+        Ticket inst=new Ticket();
+        Ticket queriedInst=new Ticket();
+        boolean testVal=true;
+        inst.setClosedResolved(testVal);
+        try {
+            queriedInst=saveAndRetrieve.ticket(inst);
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertTrue(queriedInst.isClosedResolved()==testVal);
+    }
 }
