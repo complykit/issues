@@ -51,6 +51,33 @@ public class RISCIssueTest {
         assertTrue(instance1.getId().longValue()<instance2.getId().longValue());
     }
 
+
+    /**
+     * Test of getIssueTitle method, of class RISCIssue.
+     */
+    @Test
+    public void testDisplayOrder() {
+        RISCIssue inst=new RISCIssue();
+        RISCIssue queriedInst=new RISCIssue();
+        String testVal="A";
+        inst.setDisplayOrder(testVal);
+        try {
+            Session session=HibernateUtil.getSessionFactory().openSession();
+            session.save(inst);
+
+            Long id=inst.getId();
+
+            String hql="from RISCIssue where id="+id.longValue();
+            Query query=session.createQuery(hql);
+            queriedInst=(RISCIssue)query.uniqueResult();
+            session.close();
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertNotNull(queriedInst.getDisplayOrder());
+        assertTrue(queriedInst.getDisplayOrder().equals(testVal));
+    }
+
     /**
      * Test of getRiskMagnitude method, of class RISCIssue.
      */

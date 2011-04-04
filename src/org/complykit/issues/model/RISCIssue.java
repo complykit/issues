@@ -7,7 +7,6 @@ package org.complykit.issues.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,6 +41,8 @@ public class RISCIssue {
 
     private String category="";
 
+    private String displayOrder;
+
     private Set steps=new HashSet();
 
     //private Group group;
@@ -53,6 +54,14 @@ public class RISCIssue {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Column(name="display_order")
+    public String getDisplayOrder() {
+        return displayOrder;
+    }
+    public void setDisplayOrder(String displayOrder) {
+        this.displayOrder = displayOrder;
     }
 
     @Column(name="risk_magnitude")
