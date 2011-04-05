@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +30,9 @@ public class Ticket {
     private String title;
     private String description;
 
-    private String submitter;
-    private String assignedTo;
+    private User submitter;
+    private User assignedTo;
+    private UserGroup userGroup;
 
     private String category;
 
@@ -61,7 +64,7 @@ public class Ticket {
         return title;
     }
     public void setTitle(String title) {
-        this.title = title;
+        this.title=title;
     }
 
     @Column(name="description", columnDefinition="text")
@@ -69,23 +72,34 @@ public class Ticket {
         return description;
     }
     public void setDescription(String description) {
-        this.description = description;
+        this.description=description;
     }
 
-    @Column(name="submitter", length=255)
-    public String getSubmitter() {
+    @OneToOne
+    @JoinColumn(name="submitter_fk")
+    public User getSubmitter() {
         return submitter;
     }
-    public void setSubmitter(String submitter) {
-        this.submitter = submitter;
+    public void setSubmitter(User submitter) {
+        this.submitter=submitter;
     }
 
-    @Column(name="assigned_to", length=255)
-    public String getAssignedTo() {
+    @OneToOne
+    @JoinColumn(name="assigned_to_fk")
+    public User getAssignedTo() {
         return assignedTo;
     }
-    public void setAssignedTo(String assignedTo) {
-        this.assignedTo = assignedTo;
+    public void setAssignedTo(User assignedTo) {
+        this.assignedTo=assignedTo;
+    }
+
+    @OneToOne
+    @JoinColumn(name="user_group_fk")
+    public UserGroup getUserGroup() {
+        return userGroup;
+    }
+    public void setUserGroup(UserGroup userGroup) {
+        this.userGroup = userGroup;
     }
 
     @Column(name="category", length=255)
@@ -93,9 +107,8 @@ public class Ticket {
         return category;
     }
     public void setCategory(String category) {
-        this.category = category;
+        this.category=category;
     }
-
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="closed_date")
@@ -103,7 +116,7 @@ public class Ticket {
         return closedDate;
     }
     public void setClosedDate(Date closedDate) {
-        this.closedDate = closedDate;
+        this.closedDate=closedDate;
     }
 
     @Column(name="closed_comments", columnDefinition="text")
@@ -111,7 +124,7 @@ public class Ticket {
         return closeComments;
     }
     public void setCloseComments(String closeComments) {
-        this.closeComments = closeComments;
+        this.closeComments=closeComments;
     }
 
     @Column(name="closed_status")
@@ -119,7 +132,7 @@ public class Ticket {
         return closed;
     }
     public void setClosed(boolean closed) {
-        this.closed = closed;
+        this.closed=closed;
     }
 
     @Column(name="closed_resolved")
@@ -127,7 +140,7 @@ public class Ticket {
         return closedResolved;
     }
     public void setClosedResolved(boolean closedResolved) {
-        this.closedResolved = closedResolved;
+        this.closedResolved=closedResolved;
     }
 
 }

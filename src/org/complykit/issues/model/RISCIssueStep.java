@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +37,9 @@ public class RISCIssueStep {
     private Date statusDate;
 
     private RISCIssue issue;
+
+    private User assignedTo;
+    private User submitter;
 
     @Id @Column(name="step_id")
     @GeneratedValue
@@ -92,6 +97,24 @@ public class RISCIssueStep {
     }
     public void setStatusDate(Date statusDate) {
         this.statusDate = statusDate;
+    }
+
+    @OneToOne
+    @JoinColumn(name="submitter_fk")
+    public User getSubmitter() {
+        return submitter;
+    }
+    public void setSubmitter(User submitter) {
+        this.submitter = submitter;
+    }
+
+    @OneToOne
+    @JoinColumn(name="assigned_to_fk")
+    public User getAssignedTo() {
+        return assignedTo;
+    }
+    public void setAssignedTo(User assignedTo) {
+        this.assignedTo=assignedTo;
     }
 
     @ManyToOne

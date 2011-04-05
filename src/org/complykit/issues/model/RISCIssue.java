@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,8 +46,9 @@ public class RISCIssue {
 
     private Set steps=new HashSet();
 
-    //private Group group;
-    
+    private User submitter;
+    private UserGroup userGroup;
+
     @Id @Column(name="risc_id")
     @GeneratedValue
     public Long getId() {
@@ -138,17 +140,22 @@ public class RISCIssue {
         this.steps = steps;
     }
 
-    /*
-    @ManyToOne
-    @Column(name="group_id")
-    public Group getGroup() {
-        return group;
+    @OneToOne
+    @JoinColumn(name="submitter_fk")
+    public User getSubmitter() {
+        return submitter;
     }
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setSubmitter(User submitter) {
+        this.submitter = submitter;
     }
-    */
 
-
+    @OneToOne
+    @JoinColumn(name="user_group_fk")
+    public UserGroup getUserGroup() {
+        return userGroup;
+    }
+    public void setUserGroup(UserGroup userGroup) {
+        this.userGroup = userGroup;
+    }
 
 }

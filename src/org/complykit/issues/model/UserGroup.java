@@ -5,11 +5,13 @@
 
 package org.complykit.issues.model;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,10 +21,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="user_groups")
-public class Group {
+public class UserGroup {
     private Long id;
     private String name;
-    private Set users;
+    private Set users=new HashSet();
 
     @Id @Column(name="group_id")
     @GeneratedValue
@@ -41,8 +43,8 @@ public class Group {
         this.name = name;
     }
 
-    //TODO should be many to many I think
-    @OneToMany
+    @OneToMany(targetEntity=org.complykit.issues.model.User.class)
+    @JoinColumn(name="user_group_fk")
     public Set getUsers() {
         return users;
     }

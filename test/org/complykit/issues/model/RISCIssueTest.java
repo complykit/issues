@@ -4,6 +4,7 @@
 
 package org.complykit.issues.model;
 
+import org.complykit.issues.test.UtilSaveAndRetrieveObjects;
 import org.hibernate.Query;
 import org.complykit.issues.test.HibernateUtil;
 import org.hibernate.Session;
@@ -20,9 +21,14 @@ import static org.junit.Assert.*;
  * @author mrice
  */
 public class RISCIssueTest {
+
+    UtilSaveAndRetrieveObjects saveAndRetrieve;
+
     @BeforeClass public static void setUpClass() throws Exception { }
     @AfterClass public static void tearDownClass() throws Exception { }
-    @Before public void setUp() { }
+    @Before public void setUp() {
+        saveAndRetrieve=new UtilSaveAndRetrieveObjects();
+    }
     @After public void tearDown() { }
 
     /**
@@ -293,6 +299,49 @@ public class RISCIssueTest {
         assertTrue(queriedInst.getCategory().equals(testVal));
     }
 
+    /**
+     * Test of submitter methods, of class Ticket.
+     */
+    @Test
+    public void testSubmitter() {
+        RISCIssue inst=new RISCIssue();
+        RISCIssue queriedInst=new RISCIssue();
+        User submitter=new User();
+        submitter.setEmail("test@test.com");
+        inst.setSubmitter(submitter);
+        try {
+            saveAndRetrieve.user(submitter);
+            queriedInst=saveAndRetrieve.riscIssue(inst);
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertNotNull(queriedInst.getSubmitter());
+        assertTrue(queriedInst.getSubmitter().getId()==submitter.getId());
+    }
+
+    /**
+     * Test of getCategory method, of class Ticket.
+     */
+    @Test
+    public void testUserGroup() {
+        RISCIssue inst=new RISCIssue();
+        RISCIssue queriedInst=new RISCIssue();
+        UserGroup group=new UserGroup();
+        group.setName("group 1");
+        inst.setUserGroup(group);
+        try {
+            saveAndRetrieve.userGroup(group);
+            queriedInst=saveAndRetrieve.riscIssue(inst);
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertNotNull(queriedInst.getUserGroup());
+        assertTrue(queriedInst.getUserGroup().getId()==group.getId());
+    }
+
+    /**
+     * Test of step methods, of class Ticket.
+     */
     @Test
     public void testSteps() {
         RISCIssue inst=new RISCIssue();

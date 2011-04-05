@@ -134,15 +134,16 @@ public class TicketTest {
     public void testSubmitter() {
         Ticket inst=new Ticket();
         Ticket queriedInst=new Ticket();
-        String testVal="test fsds fd";
-        inst.setSubmitter(testVal);
+        User submitter=new User();
+        inst.setSubmitter(submitter);
         try {
+            saveAndRetrieve.user(submitter);
             queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
         assertNotNull(queriedInst.getSubmitter());
-        assertTrue(queriedInst.getSubmitter().equals(testVal));
+        assertTrue(queriedInst.getSubmitter().getId()==submitter.getId());
     }
 
     /**
@@ -152,33 +153,37 @@ public class TicketTest {
     public void testAssignedTo() {
         Ticket inst=new Ticket();
         Ticket queriedInst=new Ticket();
-        String testVal="test fsds fd";
-        inst.setAssignedTo(testVal);
+        User assignedTo=new User();
+        assignedTo.setEmail("test@test.com");
+        inst.setAssignedTo(assignedTo);
         try {
+            saveAndRetrieve.user(assignedTo);
             queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
         assertNotNull(queriedInst.getAssignedTo());
-        assertTrue(queriedInst.getAssignedTo().equals(testVal));
+        assertTrue(queriedInst.getAssignedTo().getId()==assignedTo.getId());
     }
 
     /**
      * Test of getCategory method, of class Ticket.
      */
     @Test
-    public void testCategory() {
+    public void testUserGroup() {
         Ticket inst=new Ticket();
         Ticket queriedInst=new Ticket();
-        String testVal="test fsds fd";
-        inst.setCategory(testVal);
+        UserGroup group=new UserGroup();
+        group.setName("group 1");
+        inst.setUserGroup(group);
         try {
+            saveAndRetrieve.userGroup(group);
             queriedInst=saveAndRetrieve.ticket(inst);
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
-        assertNotNull(queriedInst.getCategory());
-        assertTrue(queriedInst.getCategory().equals(testVal));
+        assertNotNull(queriedInst.getUserGroup());
+        assertTrue(queriedInst.getUserGroup().getId()==group.getId());
     }
 
     /**

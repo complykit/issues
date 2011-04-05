@@ -35,6 +35,8 @@ public class HibernateUtil {
             config.setProperty("hibernate.connection.password", "abc123");
             config.setProperty("hibernate.connection.pool_size", "5");
 
+            config.addAnnotatedClass(org.complykit.issues.model.UserGroup.class);
+            config.addAnnotatedClass(org.complykit.issues.model.User.class);
             config.addAnnotatedClass(org.complykit.issues.model.RISCIssue.class);
             config.addAnnotatedClass(org.complykit.issues.model.RISCIssueStep.class);
             config.addAnnotatedClass(org.complykit.issues.model.Ticket.class);
