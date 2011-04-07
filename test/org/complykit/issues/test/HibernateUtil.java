@@ -38,7 +38,8 @@ public class HibernateUtil {
             config.addAnnotatedClass(org.complykit.issues.model.UserGroup.class);
             config.addAnnotatedClass(org.complykit.issues.model.User.class);
             config.addAnnotatedClass(org.complykit.issues.model.RISCIssue.class);
-            config.addAnnotatedClass(org.complykit.issues.model.RISCIssueStep.class);
+            config.addAnnotatedClass(org.complykit.issues.model.RISCIssueInstruction.class);
+            config.addAnnotatedClass(org.complykit.issues.model.RISCAuthority.class);
             config.addAnnotatedClass(org.complykit.issues.model.Ticket.class);
             
             sessionFactory=config.buildSessionFactory();

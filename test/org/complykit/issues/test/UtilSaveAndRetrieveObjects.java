@@ -4,6 +4,7 @@
 
 package org.complykit.issues.test;
 
+import org.complykit.issues.model.RISCAuthority;
 import org.complykit.issues.model.RISCIssue;
 import org.complykit.issues.model.Ticket;
 import org.complykit.issues.model.User;
@@ -104,6 +105,29 @@ public class UtilSaveAndRetrieveObjects {
         String hql="from RISCIssue where id="+id.longValue();
         Query query=session.createQuery(hql);
         queriedInst=(RISCIssue)query.uniqueResult();
+
+        session.close();
+
+        return queriedInst;
+    }
+
+    /**
+     *
+     * @param authority the new user to be saved
+     * @return the authority to be pulled from the JPA
+     * @throws Exception
+     */
+    public RISCAuthority authority(RISCAuthority authority) throws Exception {
+
+        RISCAuthority queriedInst=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        session.save(authority);
+
+        Long id=authority.getId();
+
+        String hql="from RISCAuthority where id="+id.longValue();
+        Query query=session.createQuery(hql);
+        queriedInst=(RISCAuthority)query.uniqueResult();
 
         session.close();
 

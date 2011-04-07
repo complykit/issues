@@ -19,21 +19,21 @@ import static org.junit.Assert.*;
  *
  * @author mrice
  */
-public class RISCIssueStepTest {
+public class RISCIssueInstructionTest {
 
-    public RISCIssueStepTest() {}
+    public RISCIssueInstructionTest() {}
     @BeforeClass public static void setUpClass() throws Exception {}
     @AfterClass public static void tearDownClass() throws Exception {}
     @Before public void setUp() {}
     @After public void tearDown() {}
 
     /**
-     * Test of getId method, of class RISCIssueStep.
+     * Test of getId method, of class RISCIssueInstruction.
      */
     @Test
     public void testId() {
-        RISCIssueStep instance1=new RISCIssueStep();
-        RISCIssueStep instance2=new RISCIssueStep();
+        RISCIssueInstruction instance1=new RISCIssueInstruction();
+        RISCIssueInstruction instance2=new RISCIssueInstruction();
 
         try {
             Session session=HibernateUtil.getSessionFactory().openSession();
@@ -53,12 +53,12 @@ public class RISCIssueStepTest {
     }
 
     /**
-     * Test of getDisplayOrder method, of class RISCIssueStep.
+     * Test of getDisplayOrder method, of class RISCIssueInstruction.
      */
     @Test
     public void testDisplayOrder() {
-        RISCIssueStep inst=new RISCIssueStep();
-        RISCIssueStep queriedInst=new RISCIssueStep();
+        RISCIssueInstruction inst=new RISCIssueInstruction();
+        RISCIssueInstruction queriedInst=new RISCIssueInstruction();
         String testVal="test fsds fd";
         inst.setDisplayOrder(testVal);
         try {
@@ -67,9 +67,9 @@ public class RISCIssueStepTest {
 
             Long id=inst.getId();
 
-            String hql="from RISCIssueStep where id="+id.longValue();
+            String hql="from RISCIssueInstruction where id="+id.longValue();
             Query query=session.createQuery(hql);
-            queriedInst=(RISCIssueStep)query.uniqueResult();
+            queriedInst=(RISCIssueInstruction)query.uniqueResult();
             session.close();
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
@@ -79,12 +79,12 @@ public class RISCIssueStepTest {
     }
 
     /**
-     * Test of getTitle method, of class RISCIssueStep.
+     * Test of getTitle method, of class RISCIssueInstruction.
      */
     @Test
     public void testTitle() {
-        RISCIssueStep inst=new RISCIssueStep();
-        RISCIssueStep queriedInst=new RISCIssueStep();
+        RISCIssueInstruction inst=new RISCIssueInstruction();
+        RISCIssueInstruction queriedInst=new RISCIssueInstruction();
         String testVal="test fsds fd";
         inst.setTitle(testVal);
         try {
@@ -93,9 +93,9 @@ public class RISCIssueStepTest {
 
             Long id=inst.getId();
 
-            String hql="from RISCIssueStep where id="+id.longValue();
+            String hql="from RISCIssueInstruction where id="+id.longValue();
             Query query=session.createQuery(hql);
-            queriedInst=(RISCIssueStep)query.uniqueResult();
+            queriedInst=(RISCIssueInstruction)query.uniqueResult();
             session.close();
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
@@ -105,12 +105,12 @@ public class RISCIssueStepTest {
     }
 
     /**
-     * Test of getDescription method, of class RISCIssueStep.
+     * Test of getDescription method, of class RISCIssueInstruction.
      */
     @Test
     public void testDescription() {
-        RISCIssueStep inst=new RISCIssueStep();
-        RISCIssueStep queriedInst=new RISCIssueStep();
+        RISCIssueInstruction inst=new RISCIssueInstruction();
+        RISCIssueInstruction queriedInst=new RISCIssueInstruction();
         String testVal="";
         for (int i=0; i<1000; i++) {
             testVal=testVal+i;
@@ -122,9 +122,9 @@ public class RISCIssueStepTest {
 
             Long id=inst.getId();
 
-            String hql="from RISCIssueStep where id="+id.longValue();
+            String hql="from RISCIssueInstruction where id="+id.longValue();
             Query query=session.createQuery(hql);
-            queriedInst=(RISCIssueStep)query.uniqueResult();
+            queriedInst=(RISCIssueInstruction)query.uniqueResult();
             session.close();
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
@@ -134,12 +134,12 @@ public class RISCIssueStepTest {
     }
 
     /**
-     * Test of getStatus method, of class RISCIssueStep.
+     * Test of getStatus method, of class RISCIssueInstruction.
      */
     @Test
     public void testStatus() {
-        RISCIssueStep inst=new RISCIssueStep();
-        RISCIssueStep queriedInst=new RISCIssueStep();
+        RISCIssueInstruction inst=new RISCIssueInstruction();
+        RISCIssueInstruction queriedInst=new RISCIssueInstruction();
         String testVal="test fsds fd";
         inst.setStatus(testVal);
         try {
@@ -148,9 +148,9 @@ public class RISCIssueStepTest {
 
             Long id=inst.getId();
 
-            String hql="from RISCIssueStep where id="+id.longValue();
+            String hql="from RISCIssueInstruction where id="+id.longValue();
             Query query=session.createQuery(hql);
-            queriedInst=(RISCIssueStep)query.uniqueResult();
+            queriedInst=(RISCIssueInstruction)query.uniqueResult();
             session.close();
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
@@ -160,12 +160,12 @@ public class RISCIssueStepTest {
     }
 
     /**
-     * Test of getStatusDescription method, of class RISCIssueStep.
+     * Test of getStatusDescription method, of class RISCIssueInstruction.
      */
     @Test
     public void testStatusDescription() {
-        RISCIssueStep inst=new RISCIssueStep();
-        RISCIssueStep queriedInst=new RISCIssueStep();
+        RISCIssueInstruction inst=new RISCIssueInstruction();
+        RISCIssueInstruction queriedInst=new RISCIssueInstruction();
         String testVal="";
         for (int i=0; i<1000; i++) {
             testVal=testVal+i;
@@ -177,9 +177,9 @@ public class RISCIssueStepTest {
 
             Long id=inst.getId();
 
-            String hql="from RISCIssueStep where id="+id.longValue();
+            String hql="from RISCIssueInstruction where id="+id.longValue();
             Query query=session.createQuery(hql);
-            queriedInst=(RISCIssueStep)query.uniqueResult();
+            queriedInst=(RISCIssueInstruction)query.uniqueResult();
             session.close();
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
@@ -189,12 +189,12 @@ public class RISCIssueStepTest {
     }
 
     /**
-     * Test of getStatusDate method, of class RISCIssueStep.
+     * Test of getStatusDate method, of class RISCIssueInstruction.
      */
     @Test
     public void testStatusDate() {
-        RISCIssueStep inst=new RISCIssueStep();
-        RISCIssueStep queriedInst=new RISCIssueStep();
+        RISCIssueInstruction inst=new RISCIssueInstruction();
+        RISCIssueInstruction queriedInst=new RISCIssueInstruction();
         Date testVal=new Date();
         inst.setStatusDate(testVal);
         try {
@@ -203,9 +203,9 @@ public class RISCIssueStepTest {
 
             Long id=inst.getId();
 
-            String hql="from RISCIssueStep where id="+id.longValue();
+            String hql="from RISCIssueInstruction where id="+id.longValue();
             Query query=session.createQuery(hql);
-            queriedInst=(RISCIssueStep)query.uniqueResult();
+            queriedInst=(RISCIssueInstruction)query.uniqueResult();
             session.close();
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
@@ -215,34 +215,34 @@ public class RISCIssueStepTest {
     }
 
     /**
-     * Test of getIssue method, of class RISCIssueStep.
+     * Test of getIssue method, of class RISCIssueInstruction.
      */
     @Test
     public void testIssue() {
         RISCIssue inst=new RISCIssue();
-        RISCIssueStep queriedInst=new RISCIssueStep();
+        RISCIssueInstruction queriedInst=new RISCIssueInstruction();
 
-        RISCIssueStep step1=new RISCIssueStep();
-        step1.setTitle("step 1");
-        step1.setIssue(inst);
+        RISCIssueInstruction instruction1=new RISCIssueInstruction();
+        instruction1.setTitle("instruction 1");
+        instruction1.setIssue(inst);
 
-        inst.getSteps().add(step1); //step1.setIssue(inst);
+        inst.getInstructions().add(instruction1); 
 
-        Long stepId=null;
+        Long instructionId=null;
         Long riscId=null;
         try {
             Session session=HibernateUtil.getSessionFactory().openSession();
             session.save(inst);
-            session.save(step1); //maybe I should get rid of this...
+            session.save(instruction1); //maybe I should get rid of this...
 
             riscId=inst.getId();
             
-            //get the ID from the saved step
-            stepId=((RISCIssueStep)inst.getSteps().iterator().next()).getId();
+            //get the ID from the saved instruction
+            instructionId=((RISCIssueInstruction)inst.getInstructions().iterator().next()).getId();
 
-            String hql="from RISCIssueStep where id="+stepId.longValue();
+            String hql="from RISCIssueInstruction where id="+instructionId.longValue();
             Query query=session.createQuery(hql);
-            queriedInst=(RISCIssueStep)query.uniqueResult();
+            queriedInst=(RISCIssueInstruction)query.uniqueResult();
             session.close();
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());

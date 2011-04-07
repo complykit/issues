@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  */
 public class RISCIssueTest {
 
-    UtilSaveAndRetrieveObjects saveAndRetrieve;
+    private UtilSaveAndRetrieveObjects saveAndRetrieve;
 
     @BeforeClass public static void setUpClass() throws Exception { }
     @AfterClass public static void tearDownClass() throws Exception { }
@@ -140,11 +140,11 @@ public class RISCIssueTest {
      * Test of getIssueTitle method, of class RISCIssue.
      */
     @Test
-    public void testIssueTitle() {
+    public void testTitle() {
         RISCIssue inst=new RISCIssue();
         RISCIssue queriedInst=new RISCIssue();
         String testVal="test fsds fd";
-        inst.setIssueTitle(testVal);
+        inst.setTitle(testVal);
         try {
             Session session=HibernateUtil.getSessionFactory().openSession();
             session.save(inst);
@@ -158,22 +158,22 @@ public class RISCIssueTest {
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
-        assertNotNull(queriedInst.getIssueTitle());
-        assertTrue(queriedInst.getIssueTitle().equals(testVal));
+        assertNotNull(queriedInst.getTitle());
+        assertTrue(queriedInst.getTitle().equals(testVal));
     }
 
     /**
      * Test of getIssueDescription method, of class RISCIssue.
      */
     @Test
-    public void testIssueDescription() {
+    public void testSummary() {
         RISCIssue inst=new RISCIssue();
         RISCIssue queriedInst=new RISCIssue();
         String testVal="";
         for (int i=0; i<1000; i++) {
             testVal=testVal+i;
         }
-        inst.setIssueDescription(testVal);
+        inst.setSummary(testVal);
         try {
             Session session=HibernateUtil.getSessionFactory().openSession();
             session.save(inst);
@@ -187,8 +187,37 @@ public class RISCIssueTest {
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
-        assertNotNull(queriedInst.getIssueDescription());
-        assertTrue(queriedInst.getIssueDescription().equals(testVal));
+        assertNotNull(queriedInst.getSummary());
+        assertTrue(queriedInst.getSummary().equals(testVal));
+    }
+
+    /**
+     * Test of getIssueDescription method, of class RISCIssue.
+     */
+    @Test
+    public void testDetailedDescription() {
+        RISCIssue inst=new RISCIssue();
+        RISCIssue queriedInst=new RISCIssue();
+        String testVal="";
+        for (int i=0; i<1000; i++) {
+            testVal=testVal+i;
+        }
+        inst.setDetailedDescription(testVal);
+        try {
+            Session session=HibernateUtil.getSessionFactory().openSession();
+            session.save(inst);
+
+            Long id=inst.getId();
+
+            String hql="from RISCIssue where id="+id.longValue();
+            Query query=session.createQuery(hql);
+            queriedInst=(RISCIssue)query.uniqueResult();
+            session.close();
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertNotNull(queriedInst.getDetailedDescription());
+        assertTrue(queriedInst.getDetailedDescription().equals(testVal));
     }
 
     /**
@@ -339,21 +368,48 @@ public class RISCIssueTest {
         assertTrue(queriedInst.getUserGroup().getId()==group.getId());
     }
 
+
     /**
-     * Test of step methods, of class Ticket.
+     * Test of getIssueTitle method, of class RISCIssue.
      */
     @Test
-    public void testSteps() {
+    public void testInstructionDisplayMode() {
+        RISCIssue inst=new RISCIssue();
+        RISCIssue queriedInst=new RISCIssue();
+        String testVal="test fsds fd";
+        inst.setInstructionDisplayMode(testVal);
+        try {
+            Session session=HibernateUtil.getSessionFactory().openSession();
+            session.save(inst);
+
+            Long id=inst.getId();
+
+            String hql="from RISCIssue where id="+id.longValue();
+            Query query=session.createQuery(hql);
+            queriedInst=(RISCIssue)query.uniqueResult();
+            session.close();
+        } catch (Exception e) {
+            fail(e.getClass().getCanonicalName()+": "+e.getMessage());
+        }
+        assertNotNull(queriedInst.getInstructionDisplayMode());
+        assertTrue(queriedInst.getInstructionDisplayMode().equals(testVal));
+    }
+
+    /**
+     * Test of instruction methods, of class Ticket.
+     */
+    @Test
+    public void testInstructions() {
         RISCIssue inst=new RISCIssue();
         RISCIssue queriedInst=new RISCIssue();
 
-        RISCIssueStep step1=new RISCIssueStep();
-        step1.setTitle("step 1");
-        RISCIssueStep step2=new RISCIssueStep();
-        step2.setTitle("step 2");
+        RISCIssueInstruction instruction1=new RISCIssueInstruction();
+        instruction1.setTitle("instruction 1");
+        RISCIssueInstruction instruction2=new RISCIssueInstruction();
+        instruction2.setTitle("instruction 2");
 
-        inst.getSteps().add(step1);
-        inst.getSteps().add(step2);
+        inst.getInstructions().add(instruction1);
+        inst.getInstructions().add(instruction2);
 
         String testVal="test fsds fd";
         inst.setCategory(testVal);
@@ -371,7 +427,7 @@ public class RISCIssueTest {
         } catch (Exception e) {
             fail(e.getClass().getCanonicalName()+": "+e.getMessage());
         }
-        assertNotNull(queriedInst.getSteps());
-        assertTrue(queriedInst.getSteps().size()==2);
+        assertNotNull(queriedInst.getInstructions());
+        assertTrue(queriedInst.getInstructions().size()==2);
     }
 }

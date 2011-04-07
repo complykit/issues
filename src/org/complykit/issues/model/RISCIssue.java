@@ -33,8 +33,9 @@ public class RISCIssue {
     private Double riskMagnitude=new Double(1);
     private Double riskProbability=new Double(0.0);
 
-    private String issueTitle="";
-    private String issueDescription="";
+    private String title="";
+    private String summary="";
+    private String detailedDescription="";
 
     private String statusTitle="";
     private String statusDescription="";
@@ -44,7 +45,10 @@ public class RISCIssue {
 
     private String displayOrder;
 
-    private Set steps=new HashSet();
+    private String instructionDisplayMode="bullets";
+    private Set instructions=new HashSet();
+
+    private Set authorities=new HashSet();
 
     private User submitter;
     private UserGroup userGroup;
@@ -82,20 +86,28 @@ public class RISCIssue {
         this.riskProbability = riskProbability;
     }
 
-    @Column(name="issue_title")
-    public String getIssueTitle() {
-        return issueTitle;
+    @Column(name="title")
+    public String getTitle() {
+        return title;
     }
-    public void setIssueTitle(String issueTitle) {
-        this.issueTitle = issueTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    @Column(name="issue_description", columnDefinition="text")
-    public String getIssueDescription() {
-        return issueDescription;
+    @Column(name="summary", columnDefinition="text")
+    public String getSummary() {
+        return summary;
     }
-    public void setIssueDescription(String issueDescription) {
-        this.issueDescription = issueDescription;
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    @Column(name="detailed_description", columnDefinition="text")
+    public String getDetailedDescription() {
+        return detailedDescription;
+    }
+    public void setDetailedDescription(String detailedDescription) {
+        this.detailedDescription = detailedDescription;
     }
 
     @Temporal(TemporalType.DATE)
@@ -131,13 +143,30 @@ public class RISCIssue {
         this.category = category;
     }
 
-    @OneToMany(targetEntity=org.complykit.issues.model.RISCIssueStep.class)
-    @JoinColumn(name="risc_issue_fk")
-    public Set getSteps() {
-        return steps;
+    @Column(name="instr_disp_mode", length=255)
+    public String getInstructionDisplayMode() {
+        return instructionDisplayMode;
     }
-    public void setSteps(Set steps) {
-        this.steps = steps;
+    public void setInstructionDisplayMode(String instructionDisplayMode) {
+        this.instructionDisplayMode = instructionDisplayMode;
+    }
+
+    @OneToMany(targetEntity=org.complykit.issues.model.RISCIssueInstruction.class)
+    @JoinColumn(name="risc_issue_fk")
+    public Set getInstructions() {
+        return instructions;
+    }
+    public void setInstructions(Set instructions) {
+        this.instructions = instructions;
+    }
+
+    @OneToMany(targetEntity=org.complykit.issues.model.RISCAuthority.class)
+    @JoinColumn(name="risc_issue_fk")
+    public Set getAuthorities() {
+        return authorities;
+    }
+    public void setAuthorities(Set authorities) {
+        this.authorities = authorities;
     }
 
     @OneToOne
